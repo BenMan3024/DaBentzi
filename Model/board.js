@@ -20,20 +20,6 @@ export class Board {
         return this.cells.findIndex((cell) => cell.text === '');
     }
 
-    isAdjacent(index1, index2) {
-        const row1 = Math.floor(index1 / this.dimension);
-        const col1 = index1 % this.dimension;
-        const row2 = Math.floor(index2 / this.dimension);
-        const col2 = index2 % this.dimension;
-
-        const rowDiff = Math.abs(row1 - row2);
-        const colDiff = Math.abs(col1 - col2);
-
-        return (
-            (rowDiff === 1 && colDiff === 0) || (rowDiff === 0 && colDiff === 1)
-        );
-    }
-
     swapCells(index1, index2) {
         [this.cells[index1], this.cells[index2]] = [
             this.cells[index2],
@@ -43,7 +29,18 @@ export class Board {
 
     canMove(index) {
         const emptyIndex = this.getEmptyCellIndex();
-        return this.isAdjacent(index, emptyIndex);
+
+        const topNeighbor = emptyIndex - this.dimension;
+        const bottomNeighbor = emptyIndex + this.dimension;
+        const leftNeighbor = emptyIndex - 1;
+        const rightNeighbor = emptyIndex + 1;
+
+        return (
+            index === topNeighbor ||
+            index === bottomNeighbor ||
+            index === leftNeighbor ||
+            index === rightNeighbor
+        );
     }
 
     moveCell(index) {
@@ -53,5 +50,15 @@ export class Board {
             return true;
         }
         return false;
+    }
+
+    isSolved() {
+        const totalCells = this.dimension * this.dimension;
+        for (let i = 0; i < totalCells - 1; i++) {
+            if (this.cells[i].text !== (i + 1).toString()) {
+                return false;
+            }
+        }
+        return this.cells[totalCells - 1].text === '';
     }
 }
