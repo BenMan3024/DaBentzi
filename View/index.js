@@ -1,3 +1,2 @@
-export * from './onDimensionChange.js';
-export * from './onLoad.js';
+export * from './view.js';
 export * from './const.js';

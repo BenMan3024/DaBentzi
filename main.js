@@ -1,4 +1,5 @@
-import { onDimensionChange, onPageLoad, selector } from './View/index.js';
+import { GameController } from './Controller/gameController.js';
 
-selector.addEventListener('change', onDimensionChange);
-document.addEventListener('DOMContentLoaded', onPageLoad);
+const controller = new GameController();
+
+document.addEventListener('DOMContentLoaded', () => controller.init());
