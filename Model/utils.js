@@ -45,6 +45,7 @@ export const isBoardSolvable = (board) => {
     const dimension = Math.sqrt(board.length);
 
     if (dimension % 2 === 1) {
+        console.log(`Inversions: ${inversions}`);
         return inversions % 2 === 0;
     }
 
