@@ -1,6 +1,11 @@
 import { gameBoard, selector } from './const.js';
 
-export const renderBoard = (cells, dimension, onCellClick) => {
+export const renderBoard = (
+    cells,
+    dimension,
+    onCellClick,
+    gameOver = false,
+) => {
     gameBoard.style.setProperty('--grid-size', dimension);
     gameBoard.innerHTML = '';
 
@@ -8,7 +13,9 @@ export const renderBoard = (cells, dimension, onCellClick) => {
         const cellElement = document.createElement('div');
         cellElement.classList.add('cell');
         cellElement.textContent = cell.text;
-        cellElement.addEventListener('click', () => onCellClick(index));
+        if (!gameOver) {
+            cellElement.addEventListener('click', () => onCellClick(index));
+        }
         gameBoard.appendChild(cellElement);
     });
 };
