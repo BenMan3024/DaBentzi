@@ -1,13 +1,14 @@
 import { gameBoard, selector } from './const.js';
 
-export const renderBoard = (cells, dimension) => {
+export const renderBoard = (cells, dimension, onCellClick) => {
     gameBoard.style.setProperty('--grid-size', dimension);
     gameBoard.innerHTML = '';
 
-    cells.map((cell) => {
+    cells.map((cell, index) => {
         const cellElement = document.createElement('div');
         cellElement.classList.add('cell');
         cellElement.textContent = cell.text;
+        cellElement.addEventListener('click', () => onCellClick(index));
         gameBoard.appendChild(cellElement);
     });
 };

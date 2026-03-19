@@ -18,6 +18,18 @@ export class GameController {
 
     setDimension(dimension) {
         this.board = new Board(dimension);
-        renderBoard(this.board.cells, dimension);
+        this.render();
+    }
+
+    onCellClick(index) {
+        if (this.board.moveCell(index)) {
+            this.render();
+        }
+    }
+
+    render() {
+        renderBoard(this.board.cells, this.board.dimension, (index) =>
+            this.onCellClick(index),
+        );
     }
 }
